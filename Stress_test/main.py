@@ -7,6 +7,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.preprocessing import StandardScaler
 
 
 #loading the dataset and displaying the first few rows
@@ -54,6 +55,14 @@ le = LabelEncoder()
 le.fit(y_train)
 y_train = le.transform(y_train)
 y_test = le.transform(y_test)
+
+# Apply scalling to numerical features
+sc = StandardScaler()
+num_cols = ['Stress Level (GSR)','Anxiety Level','Mood Score']
+X_train[num_cols] = sc.fit_transform(X_train[num_cols])
+X_test[num_cols] = sc.transform(X_test[num_cols])
+print(X_train[num_cols].mean())
+print(X_train[num_cols].std())
 
 #Apply Logistic Regression
 lr = LogisticRegression(max_iter=1000, random_state=42)
