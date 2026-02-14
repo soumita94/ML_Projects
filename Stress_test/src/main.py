@@ -8,7 +8,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.preprocessing import StandardScaler
-
+import pickle
+import os
 
 #loading the dataset and displaying the first few rows
 df = pd.read_csv('student_monnitoring_data.csv')
@@ -74,3 +75,17 @@ y_test_label = le.inverse_transform(y_test)
 print("Accuracy:", accuracy_score(y_test_label, y_pred_label))
 print("Confusion Matrix:\n", confusion_matrix(y_test_label, y_pred_label))
 
+
+model_bundle = {
+    "model": lr,
+    "ordinal_encoder": ode,
+    "label_encoder": le,
+    "scaler": sc
+}
+
+
+with open("model.pkl", "wb") as f:
+    pickle.dump(model_bundle, f)
+
+print("Model saved successfully as model.pkl")
+print(X.head())
