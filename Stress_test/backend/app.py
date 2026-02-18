@@ -21,7 +21,6 @@ label_encoder = bundle["label_encoder"]
 print("Artifacts loaded successfully")
 
 
-
 class UserInput(BaseModel):
     Attendance_Status: Annotated[
         Literal['Late', 'Present', 'Absent'],
